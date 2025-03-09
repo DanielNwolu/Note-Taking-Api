@@ -102,6 +102,14 @@ Each note contains:
 ```bash
 npm run dev
 ```
+### Production Mode
+
+```bash
+npm run build
+
+npm start
+
+```
 
 The application will be available at `http://localhost:5000` (or the PORT you specified in .env).
 
