@@ -20,7 +20,7 @@ This API provides core functionality for managing notes including creating, retr
 
 The API includes interactive documentation using Swagger UI.
 
-- **Access URL**: `http://localhost:5000/api-docs`
+- **Access URL**: `https://note-taking-api-hzp3.onrender.com/api-docs`
 - **Features**:
   - Browse all available endpoints
   - See request/response schemas
@@ -28,18 +28,20 @@ The API includes interactive documentation using Swagger UI.
   - View detailed parameter information
 
 To access the documentation:
+the node is deployed on render and will take 60 second or more to respond on restart
+
 1. Start the application
 2. Open your browser
-3. Navigate to `http://localhost:5000/api-docs`
+3. Navigate to `https://note-taking-api-hzp3.onrender.com/api-docs`
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/notes` | Retrieve all notes (sorted by last updated) |
-| GET | `/api/notes/:id` | Retrieve a specific note by ID |
-| POST | `/api/notes` | Create a new note |
-| DELETE | `/api/notes/:id` | Delete a note by ID |
+| Method | Endpoint         | Description                                 |
+| ------ | ---------------- | ------------------------------------------- |
+| GET    | `/api/notes`     | Retrieve all notes (sorted by last updated) |
+| GET    | `/api/notes/:id` | Retrieve a specific note by ID              |
+| POST   | `/api/notes`     | Create a new note                           |
+| DELETE | `/api/notes/:id` | Delete a note by ID                         |
 
 ## Note Model
 
@@ -60,12 +62,14 @@ Each note contains:
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/note-taking-api.git
    cd note-taking-api
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -75,7 +79,7 @@ Each note contains:
    PORT=5000
    MONGO_URI=mongodb://localhost:27017/note-taking-app
    ```
-   *Note: Update the MONGO_URI as needed for your environment*
+   _Note: Update the MONGO_URI as needed for your environment_
 
 ## Running the Application
 
@@ -83,15 +87,6 @@ Each note contains:
 
 ```bash
 npm run dev
-```
-
-This will start the server with hot-reloading enabled.
-
-### Production Mode
-
-```bash
-npm run build
-npm start
 ```
 
 The application will be available at `http://localhost:5000` (or the PORT you specified in .env).
@@ -105,6 +100,7 @@ GET /api/notes
 ```
 
 Response:
+
 ```json
 {
   "status": "success",
@@ -137,6 +133,7 @@ GET /api/notes/60d21b4667d0d8992e610c85
 ```
 
 Response:
+
 ```json
 {
   "status": "success",
@@ -165,6 +162,7 @@ Content-Type: application/json
 ```
 
 Response:
+
 ```json
 {
   "status": "success",
@@ -197,6 +195,7 @@ The API provides clear error messages with appropriate HTTP status codes:
 - `500 Internal Server Error`: Unexpected server errors
 
 Example error response:
+
 ```json
 {
   "status": "fail",
