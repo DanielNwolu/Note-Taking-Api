@@ -78,7 +78,7 @@ Each note contains:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/note-taking-api.git
+   git clone https://github.com/DanielNwolu/Note-Taking-Api.git
    cd note-taking-api
    ```
 
