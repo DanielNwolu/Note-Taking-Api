@@ -3,8 +3,12 @@ import {
   getAllNotes,
   getNoteById,
   createNote,
-  deleteNote
+  updateNote,
+  deleteNote,
+  getNotesByCategory
 } from '../controllers/noteController';
+import { validateRequest, validateNote, validateNoteUpdate } from '../middleware/validationMiddleware';
+import { requestLogger } from '../middleware/loggingMiddleware';
 
 const router = Router();
 
@@ -99,7 +103,7 @@ router.route('/')
    *             schema:
    *               $ref: '#/components/schemas/Error'
    */
-  .post(createNote);
+  .post(validateRequest(validateNote), createNote);
 
 /**
  * @swagger
@@ -169,9 +173,129 @@ router.route('/')
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
+ *   patch:
+ *     summary: Update a note
+ *     description: Update an existing note by ID.
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the note to update
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: Updated Task List
+ *               content:
+ *                 type: string
+ *                 example: Updated API documentation
+ *               categoryId:
+ *                 type: string
+ *                 example: 5f8d04b3ab35b428f8611098
+ *     responses:
+ *       200:
+ *         description: Note updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     note:
+ *                       $ref: '#/components/schemas/Note'
+ *       400:
+ *         description: Bad request - Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Note not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.route('/:id')
   .get(getNoteById)
-  .delete(deleteNote);
+  .delete(deleteNote)
+  .patch(validateRequest(validateNoteUpdate), updateNote);
+
+
+/**
+ * @swagger
+ * /api/notes/categories/{categoryId}:
+ *   get:
+ *     summary: Retrieve notes by category
+ *     description: Retrieve a list of notes filtered by category ID, sorted by last updated
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: categoryId
+ *         required: true
+ *         description: ID of the category to filter notes
+ *         schema:
+ *           type: string
+ *           example: 5f8d04b3ab35b428f8611098
+ *     responses:
+ *       200:
+ *         description: List of notes in the specified category
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 results:
+ *                   type: number
+ *                   example: 5
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     category:
+ *                       type: string
+ *                       example: 5f8d04b3ab35b428f8611098
+ *                     notes:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Note'
+ *       404:
+ *         description: Category not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.route('/categories/:categoryId')
+  .get(getNotesByCategory);
+
+
 
 export default router;

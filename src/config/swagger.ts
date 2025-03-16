@@ -54,6 +54,27 @@ const options: swaggerJsdoc.Options = {
             }
           }
         },
+        Category: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              example: '5f8d04b3ab35b428f8611098'
+            },
+            name: {
+              type: 'string',
+              example: 'Work'
+            },
+            description: {
+              type: 'string',
+              example: 'Work-related tasks'
+            },
+            color: {
+              type: 'string',
+              example: '#FF5733'
+            }
+          }
+        },
         Error: {
           type: 'object',
           properties: {

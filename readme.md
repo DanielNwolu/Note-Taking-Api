@@ -27,11 +27,11 @@ The API includes interactive documentation using Swagger UI.
   ```javascript
     servers: [
       {
-        url: 'http://localhost:5000',
+        url: 'http://localhost:5000/api-docs' or 'http://localhost:Port/api-docs',
         description: 'Development server'
       }
     ],
-
+  <!-- if you have spacified the port on .env , ensure to change the port 5000 to that of the env. -->
   ```
   in other to has access the swagger ui documentation without getting a cors error.
 

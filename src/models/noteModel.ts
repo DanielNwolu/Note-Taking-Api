@@ -13,6 +13,11 @@ const noteSchema = new Schema<INote>(
       type: String,
       required: [true, 'Content is required'],
       trim: true
+    },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
+      default: null
     }
   },
   {
